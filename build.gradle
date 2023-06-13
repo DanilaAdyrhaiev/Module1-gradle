@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.exemple'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'com.google.code.gson:gson:2.10.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    archiveFileName = 'myname.jar'
+    version = '1.0'
+    manifest {
+        attributes 'Main-Class': 'org.exemple.Main'
+    }
+    from configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
